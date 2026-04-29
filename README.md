@@ -1,7 +1,7 @@
 # Chaos Engineering su Kubernetes
 **Resilience Testing di un'Architettura a Microservizi**
 
-> Progetto individuale — Corso di Edge Computing, Università degli Studi di Modena e Reggio Emilia, A.A. 2024/2025  
+> Progetto individuale — Corso di Distributed Edge Programming, Università degli Studi di Modena e Reggio Emilia, A.A. 2025/2026 
 > Studente: Leonardo Cavedoni
 
 ---
