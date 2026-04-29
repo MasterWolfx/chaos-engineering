@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chaos Demo — Item Store</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+    header {
+      background: #1e293b;
+      border-bottom: 2px solid #2e75b6;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    header h1 { font-size: 1.4rem; color: #60a5fa; }
+    header span { font-size: 0.8rem; color: #94a3b8; }
+    .status-badge {
+      margin-left: auto;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .status-ok   { background: #064e3b; color: #6ee7b7; }
+    .status-err  { background: #450a0a; color: #fca5a5; }
+    main { max-width: 960px; margin: 2rem auto; padding: 0 1.5rem; }
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .card h2 { font-size: 1rem; color: #94a3b8; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    form { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    form input, form button {
+      padding: 0.5rem 0.875rem;
+      border-radius: 0.5rem;
+      border: 1px solid #475569;
+      background: #0f172a;
+      color: #e2e8f0;
+      font-size: 0.9rem;
+    }
+    form input:focus { outline: none; border-color: #60a5fa; }
+    form input[name="name"]  { flex: 2; min-width: 120px; }
+    form input[name="desc"]  { flex: 3; min-width: 150px; }
+    form input[name="price"] { flex: 1; min-width: 80px; }
+    form button {
+      background: #2563eb;
+      border-color: #2563eb;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    form button:hover { background: #1d4ed8; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 0.6rem 0.75rem; text-align: left; border-bottom: 1px solid #1e293b; }
+    th { color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; }
+    td { font-size: 0.9rem; }
+    tr:hover td { background: #1e293b33; }
+    .btn-del {
+      background: none;
+      border: 1px solid #ef4444;
+      color: #ef4444;
+      padding: 0.2rem 0.6rem;
+      border-radius: 0.35rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .btn-del:hover { background: #450a0a; }
+    #msg {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.85rem;
+      display: none;
+      margin-bottom: 1rem;
+    }
+    #msg.ok  { background: #064e3b; color: #6ee7b7; display: block; }
+    #msg.err { background: #450a0a; color: #fca5a5; display: block; }
+    .empty { color: #64748b; font-style: italic; padding: 1rem 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Chaos Demo</h1>
+    <span>Chaos Engineering su Kubernetes - Edge Computing 2026</span>
+    <span id="health-badge" class="status-badge status-ok">API OK</span>
+  </header>
+  <main>
+    <div id="msg"></div>
+
+    <div class="card">
+      <h2>Nuovo articolo</h2>
+      <form id="create-form">
+        <input name="name"  placeholder="Nome" required />
+        <input name="desc"  placeholder="Descrizione" />
+        <input name="price" placeholder="Prezzo" type="number" step="0.01" min="0" value="0" />
+        <button type="submit">Aggiungi</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Articoli</h2>
+      <table id="items-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Nome</th><th>Descrizione</th><th>Prezzo</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="items-body">
+          <tr><td colspan="5" class="empty">Caricamento…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    const API = '/api';
+
+    async function apiFetch(path, opts = {}) {
+      const res = await fetch(API + path, {
+        headers: { 'Content-Type': 'application/json' },
+        ...opts,
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (res.status === 204) return null;
+      return res.json();
+    }
+
+    function showMsg(text, ok = true) {
+      const el = document.getElementById('msg');
+      el.textContent = text;
+      el.className = ok ? 'ok' : 'err';
+      setTimeout(() => (el.className = ''), 3000);
+    }
+
+    function renderItems(items) {
+      const tbody = document.getElementById('items-body');
+      if (!items.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty">Nessun articolo. Aggiungine uno!</td></tr>';
+        return;
+      }
+      tbody.innerHTML = items.map(i => `
+        <tr>
+          <td>${i.id}</td>
+          <td>${escHtml(i.name)}</td>
+          <td>${escHtml(i.description || '—')}</td>
+          <td>€ ${i.price.toFixed(2)}</td>
+          <td><button class="btn-del" data-id="${i.id}">Elimina</button></td>
+        </tr>
+      `).join('');
+      tbody.querySelectorAll('.btn-del').forEach(btn =>
+        btn.addEventListener('click', () => deleteItem(+btn.dataset.id))
+      );
+    }
+
+    function escHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    async function loadItems() {
+      try {
+        const items = await apiFetch('/items');
+        renderItems(items);
+        document.getElementById('health-badge').textContent = 'API OK';
+        document.getElementById('health-badge').className = 'status-badge status-ok';
+      } catch (e) {
+        document.getElementById('items-body').innerHTML =
+          '<tr><td colspan="5" class="empty">Errore nel caricamento dati</td></tr>';
+        document.getElementById('health-badge').textContent = 'API ERROR';
+        document.getElementById('health-badge').className = 'status-badge status-err';
+      }
+    }
+
+    document.getElementById('create-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      try {
+        await apiFetch('/items', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: fd.get('name'),
+            description: fd.get('desc') || null,
+            price: parseFloat(fd.get('price')) || 0,
+          }),
+        });
+        e.target.reset();
+        showMsg('Articolo aggiunto!');
+        await loadItems();
+      } catch (err) {
+        showMsg('Errore: ' + err.message, false);
+      }
+    });
+
+    async function deleteItem(id) {
+      try {
+        await apiFetch(`/items/${id}`, { method: 'DELETE' });
+        showMsg('Articolo eliminato.');
+        await loadItems();
+      } catch (err) {
+        showMsg('Errore eliminazione: ' + err.message, false);
+      }
+    }
+
+    loadItems();
+    setInterval(loadItems, 5000);
+  </script>
+</body>
+</html>

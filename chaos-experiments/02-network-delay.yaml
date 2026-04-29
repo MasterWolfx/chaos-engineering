@@ -1,0 +1,29 @@
+# Esperimento 2: Network Delay
+# Introduce 500ms di latenza (+/- 100ms jitter) sul traffico
+# dal backend verso PostgreSQL.
+# Steady state atteso: latenza API aumenta su Grafana; app funzionale
+# con degraded performance (nessun errore 5xx).
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: db-network-delay
+  namespace: chaos-mesh
+spec:
+  action: delay
+  mode: all
+  selector:
+    namespaces: [app]
+    labelSelectors:
+      app: backend
+  delay:
+    latency: "500ms"
+    correlation: "25"
+    jitter: "100ms"
+  direction: to
+  target:
+    selector:
+      namespaces: [app]
+      labelSelectors:
+        app.kubernetes.io/name: postgresql
+    mode: all
+  duration: "2m"

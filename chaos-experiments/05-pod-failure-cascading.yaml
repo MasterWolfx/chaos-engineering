@@ -1,0 +1,21 @@
+# Esperimento 5: Pod Failure Cascading
+# Uccide tutti i pod del backend in sequenza tramite Schedule ricorrente.
+# Steady state atteso: K8s scala e ripristina continuamente;
+# il sistema rimane disponibile (almeno 1 replica sempre up).
+apiVersion: chaos-mesh.org/v1alpha1
+kind: Schedule
+metadata:
+  name: backend-cascading-failure
+  namespace: chaos-mesh
+spec:
+  schedule: "@every 20s"
+  historyLimit: 2
+  concurrencyPolicy: Forbid
+  type: PodChaos
+  podChaos:
+    action: pod-kill
+    mode: one
+    selector:
+      namespaces: [app]
+      labelSelectors:
+        app: backend

@@ -1,0 +1,16 @@
+postgresql:
+  auth:
+    username: appuser
+    password: apppassword
+    database: appdb
+  primary:
+    persistence:
+      enabled: true
+      size: 1Gi
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"

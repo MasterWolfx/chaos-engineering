@@ -1,0 +1,25 @@
+# Esperimento 3: Network Partition — Backend ↔ Redis
+# Isola il backend da Redis (cache).
+# Steady state atteso: il backend cade in fallback (cache miss),
+# le richieste vanno direttamente a DB, nessun errore 5xx,
+# latenza più alta ma servizio disponibile.
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: redis-network-partition
+  namespace: chaos-mesh
+spec:
+  action: partition
+  mode: all
+  selector:
+    namespaces: [app]
+    labelSelectors:
+      app: backend
+  direction: both
+  target:
+    selector:
+      namespaces: [app]
+      labelSelectors:
+        app.kubernetes.io/name: redis
+    mode: all
+  duration: "2m"

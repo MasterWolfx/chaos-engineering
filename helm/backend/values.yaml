@@ -1,0 +1,33 @@
+replicaCount: 3
+
+image:
+  repository: ghcr.io/cavedoni/chaos-backend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3000
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  cpuTargetUtilization: 70
+
+env:
+  DATABASE_URL: "postgresql+asyncpg://appuser:apppassword@postgresql:5432/appdb"
+  REDIS_URL: "redis://redis:6379"
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "3000"
+  prometheus.io/path: "/metrics"

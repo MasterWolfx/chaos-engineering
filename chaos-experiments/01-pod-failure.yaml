@@ -1,0 +1,18 @@
+# Esperimento 1: Pod Failure
+# Uccide 1 pod del backend — verifica l'auto-healing di K8s.
+# Steady state atteso: K8s riavvia il pod entro 30s; le altre repliche
+# continuano a servire traffico senza errori 5xx visibili.
+apiVersion: chaos-mesh.org/v1alpha1
+kind: PodChaos
+metadata:
+  name: backend-pod-failure
+  namespace: chaos-mesh
+spec:
+  action: pod-kill
+  mode: one
+  selector:
+    namespaces:
+      - app
+    labelSelectors:
+      app: backend
+  duration: "30s"

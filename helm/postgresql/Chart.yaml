@@ -1,0 +1,12 @@
+apiVersion: v2
+name: postgresql
+description: PostgreSQL wrapper chart (usa Bitnami come dipendenza)
+type: application
+version: 0.1.0
+appVersion: "15"
+
+dependencies:
+  - name: postgresql
+    version: "13.x.x"
+    repository: "https://charts.bitnami.com/bitnami"
+    alias: postgresql
