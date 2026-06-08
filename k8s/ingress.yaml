@@ -3,12 +3,9 @@ kind: Ingress
 metadata:
   name: app-ingress
   namespace: app
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: nginx
   rules:
-    - host: app.localhost
+    - host: app.hypersoftware.it
       http:
         paths:
           - path: /
@@ -18,17 +15,23 @@ spec:
                 name: frontend
                 port:
                   number: 80
-          - path: /api
+    - host: grafana.hypersoftware.it
+      http:
+        paths:
+          - path: /
             pathType: Prefix
             backend:
               service:
-                name: backend
+                name: monitoring-grafana
                 port:
-                  number: 3000
-          - path: /metrics
+                  number: 80
+    - host: chaos.hypersoftware.it
+      http:
+        paths:
+          - path: /
             pathType: Prefix
             backend:
               service:
-                name: backend
+                name: chaos-dashboard
                 port:
-                  number: 3000
+                  number: 2333

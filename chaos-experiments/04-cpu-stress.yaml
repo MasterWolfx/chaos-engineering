@@ -1,7 +1,3 @@
-# Esperimento 4: CPU Stress
-# Genera carico CPU al 80% su tutti i pod del backend.
-# Steady state atteso: HPA rileva l'aumento di CPU e scala nuove repliche;
-# la latenza rimane stabile nonostante il carico aggiuntivo.
 apiVersion: chaos-mesh.org/v1alpha1
 kind: StressChaos
 metadata:
@@ -10,7 +6,8 @@ metadata:
 spec:
   mode: all
   selector:
-    namespaces: [app]
+    namespaces:
+      - app
     labelSelectors:
       app: backend
   stressors:

@@ -15,11 +15,11 @@ spec:
     namespaces: [app]
     labelSelectors:
       app: backend
-  direction: both
+  direction: to
   target:
     selector:
       namespaces: [app]
       labelSelectors:
         app.kubernetes.io/name: redis
     mode: all
-  duration: "2m"
+  duration: "10m"

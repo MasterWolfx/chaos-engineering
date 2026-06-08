@@ -5,7 +5,7 @@ import { Rate, Trend } from 'k6/metrics';
 const errorRate   = new Rate('error_rate');
 const apiLatency  = new Trend('api_latency_ms', true);
 
-const BASE_URL = __ENV.BASE_URL || 'http://app.localhost';
+const BASE_URL = __ENV.BASE_URL || 'http://localhost:8081';
 
 export const options = {
   stages: [
