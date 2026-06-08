@@ -1,4 +1,4 @@
-# 12 — Risultati e Conclusioni
+# 12 - Risultati e Conclusioni
 
 ## 12.1 Riepilogo degli Esperimenti
 
@@ -20,7 +20,7 @@ Prima di ogni esperimento, il sistema si trova nello steady state:
 
 ### Risultati per Esperimento
 
-#### Esperimento 01 — Pod Failure ✅
+#### Esperimento 01 - Pod Failure ✅
 
 | Metrica | Prima | Durante | Dopo |
 |---|---|---|---|
@@ -33,7 +33,7 @@ Prima di ogni esperimento, il sistema si trova nello steady state:
 
 ---
 
-#### Esperimento 02 — Network Delay ✅
+#### Esperimento 02 - Network Delay ✅
 
 | Metrica | Prima | Durante | Dopo |
 |---|---|---|---|
@@ -45,7 +45,7 @@ Prima di ogni esperimento, il sistema si trova nello steady state:
 
 ---
 
-#### Esperimento 03 — Network Partition ✅
+#### Esperimento 03 - Network Partition ✅
 
 | Metrica | Prima | Durante | Dopo |
 |---|---|---|---|
@@ -54,11 +54,11 @@ Prima di ogni esperimento, il sistema si trova nello steady state:
 | Error rate | 0% | 0% | 0% |
 | Fallback attivo | No | Sì | No |
 
-**Conclusione:** Il pattern di **graceful degradation** implementato in `cache.py` ha funzionato perfettamente. Redis irraggiungibile non causa errori — il backend cade automaticamente in fallback su PostgreSQL con overhead di ~50ms. Il `socket_connect_timeout=1s` evita attese lunghe.
+**Conclusione:** Il pattern di **graceful degradation** implementato in `cache.py` ha funzionato perfettamente. Redis irraggiungibile non causa errori - il backend cade automaticamente in fallback su PostgreSQL con overhead di ~50ms. Il `socket_connect_timeout=1s` evita attese lunghe.
 
 ---
 
-#### Esperimento 04 — CPU Stress ✅
+#### Esperimento 04 - CPU Stress ✅
 
 | Metrica | Prima | Durante | Dopo |
 |---|---|---|---|
@@ -71,7 +71,7 @@ Prima di ogni esperimento, il sistema si trova nello steady state:
 
 ---
 
-#### Esperimento 05 — Pod Cascading ✅
+#### Esperimento 05 - Pod Cascading ✅
 
 | Metrica | Valore |
 |---|---|
@@ -121,7 +121,7 @@ Prima di ogni esperimento, il sistema si trova nello steady state:
 ### ✅ Cosa ha funzionato bene
 
 **1. Il modello dichiarativo di Kubernetes**  
-Definire lo stato desiderato (`replicas: 3`) e lasciare che K8s lo mantenga è estremamente efficace. Non serve scrivere script di monitoring e restart — il sistema si autogestisce.
+Definire lo stato desiderato (`replicas: 3`) e lasciare che K8s lo mantenga è estremamente efficace. Non serve scrivere script di monitoring e restart - il sistema si autogestisce.
 
 **2. Il fallback Redis con timeout breve**  
 Impostare `socket_connect_timeout=1s` e restituire `None` invece di sollevare un'eccezione è la scelta giusta. Un timeout di 5-10 secondi avrebbe reso l'esperimento 03 molto più impattante per gli utenti.
@@ -264,9 +264,9 @@ Il progetto ha dimostrato che un'architettura a microservizi su Kubernetes, prog
    → Fallback trasparente per l'utente finale
 ```
 
-Il Chaos Engineering non è "rompere cose per divertimento" — è una disciplina scientifica che costruisce **fiducia misurabile** nella resilienza del sistema. La differenza tra un sistema che "speriamo regga" e uno che "sappiamo che regge" è esattamente questa: esperimenti, metriche, evidenza.
+Il Chaos Engineering non è "rompere cose per divertimento" - è una disciplina scientifica che costruisce **fiducia misurabile** nella resilienza del sistema. La differenza tra un sistema che "speriamo regga" e uno che "sappiamo che regge" è esattamente questa: esperimenti, metriche, evidenza.
 
-> *"The best way to avoid failure is to fail constantly."* — Netflix Engineering
+> *"The best way to avoid failure is to fail constantly."* - Netflix Engineering
 
 ---
 
@@ -283,4 +283,4 @@ Il Chaos Engineering non è "rompere cose per divertimento" — è una disciplin
 
 ---
 
-*← [11 — I 5 Esperimenti di Chaos](11-esperimenti-chaos.md) | [Torna all'Indice](00-indice.md)*
+*← [11 - I 5 Esperimenti di Chaos](11-esperimenti-chaos.md) | [Torna all'Indice](00-indice.md)*

@@ -1,4 +1,4 @@
-# 02 — Architettura di un Cluster Kubernetes
+# 02 - Architettura di un Cluster Kubernetes
 
 ## 2.1 Visione d'insieme
 
@@ -24,7 +24,7 @@ Un **cluster Kubernetes** è un insieme di macchine (fisiche o virtuali) che lav
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-> **Nel nostro progetto:** K3s in modalità single-node — control plane e worker girano sulla stessa VM Ubuntu. Perfetto per sviluppo e demo.
+> **Nel nostro progetto:** K3s in modalità single-node - control plane e worker girano sulla stessa VM Ubuntu. Perfetto per sviluppo e demo.
 
 ---
 
@@ -73,8 +73,8 @@ kubectl apply ...  │   helm install ...    │   kubelet, scheduler...
 ```
 
 **Caratteristiche chiave:**
-- **Consistente** — tutti i nodi vedono lo stesso stato
-- **Alta disponibilità** — in produzione si usa un cluster di 3 o 5 istanze
+- **Consistente** - tutti i nodi vedono lo stesso stato
+- **Alta disponibilità** - in produzione si usa un cluster di 3 o 5 istanze
 - **Il backup di etcd = backup dell'intero cluster**
 
 ### Scheduler (`kube-scheduler`)
@@ -105,7 +105,7 @@ Nuovo Pod da schedulare
 
 ### Controller Manager (`kube-controller-manager`)
 
-Esegue i **controller loops** — cicli continui che confrontano stato attuale e stato desiderato.
+Esegue i **controller loops** - cicli continui che confrontano stato attuale e stato desiderato.
 
 Alcuni controller importanti:
 
@@ -178,13 +178,13 @@ Il motore che **esegue effettivamente** i container. Kubernetes usa l'interfacci
 | **CRI-O** | Leggero, usato da OpenShift |
 | Docker (tramite dockershim) | Deprecato in K8s 1.24+ |
 
-> **Nel nostro progetto:** K3s usa **containerd** con socket in `/run/k3s/containerd/containerd.sock` — diverso dal Docker standard, per questo serve la configurazione specifica in Chaos Mesh.
+> **Nel nostro progetto:** K3s usa **containerd** con socket in `/run/k3s/containerd/containerd.sock` - diverso dal Docker standard, per questo serve la configurazione specifica in Chaos Mesh.
 
 ---
 
 ## 2.4 La Rete in Kubernetes
 
-### CNI — Container Network Interface
+### CNI - Container Network Interface
 
 Ogni Pod riceve un indirizzo IP unico e raggiungibile all'interno del cluster, grazie al plugin CNI.
 
@@ -283,4 +283,4 @@ Invece di usare indirizzi IP che cambiano ad ogni deploy.
 | CoreDNS | kube-system | DNS interno del cluster |
 | Flannel | Ogni nodo | Rete overlay tra Pod |
 
-**Prossima lezione →** [03 — Oggetti Kubernetes](03-oggetti-kubernetes.md)
+**Prossima lezione →** [03 - Oggetti Kubernetes](03-oggetti-kubernetes.md)

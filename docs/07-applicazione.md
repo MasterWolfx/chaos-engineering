@@ -1,4 +1,4 @@
-# 07 — L'Applicazione a Microservizi
+# 07 - L'Applicazione a Microservizi
 
 ## 7.1 Panoramica dell'Architettura
 
@@ -58,7 +58,7 @@ backend/
 └── requirements.txt
 ```
 
-### `main.py` — Gli Endpoint
+### `main.py` - Gli Endpoint
 
 ```python
 # backend/app/main.py
@@ -139,7 +139,7 @@ async def delete_item(item_id: int):
     return None
 ```
 
-### `database.py` — Connessione Asincrona a PostgreSQL
+### `database.py` - Connessione Asincrona a PostgreSQL
 
 ```python
 # backend/app/database.py
@@ -179,9 +179,9 @@ async def get_db():
         yield session
 ```
 
-### `cache.py` — Redis con Fallback Graceful
+### `cache.py` - Redis con Fallback Graceful
 
-Questo è il componente più importante per la resilienza — se Redis non è disponibile, l'app continua a funzionare:
+Questo è il componente più importante per la resilienza - se Redis non è disponibile, l'app continua a funzionare:
 
 ```python
 # backend/app/cache.py
@@ -256,7 +256,7 @@ frontend/
 └── nginx.conf        ← configurazione Nginx + proxy
 ```
 
-### `nginx.conf` — Proxy verso il Backend
+### `nginx.conf` - Proxy verso il Backend
 
 ```nginx
 # frontend/nginx.conf
@@ -286,7 +286,7 @@ server {
 - Nginx risolve `backend` via CoreDNS e fa da ponte
 - Evita problemi di CORS
 
-### La SPA — Loop di Polling
+### La SPA - Loop di Polling
 
 ```javascript
 // frontend/html/index.html (estratto)
@@ -304,7 +304,7 @@ async function fetchItems() {
     } catch (err) {
         statusEl.textContent = '● API Offline';
         statusEl.className = 'status offline';
-        // Non crasho — mostro solo lo stato di errore
+        // Non crasho - mostro solo lo stato di errore
     }
 }
 
@@ -315,7 +315,7 @@ fetchItems(); // prima chiamata immediata
 
 ---
 
-## 7.4 PostgreSQL — Il Database Persistente
+## 7.4 PostgreSQL - Il Database Persistente
 
 ```
 Configurazione nel progetto:
@@ -339,7 +339,7 @@ Schema:
 
 ---
 
-## 7.5 Redis — La Cache
+## 7.5 Redis - La Cache
 
 ```
 Configurazione nel progetto:
@@ -410,4 +410,4 @@ Massimo 1 secondo di attesa per Redis. Evita che un Redis lento blocchi tutto.
 | Database | PostgreSQL 16 | Persistenza dati | 1 (StatefulSet) |
 | Cache | Redis 7 | Cache read-through | 1 (StatefulSet) |
 
-**Prossima lezione →** [08 — Deploy su Kubernetes](08-deploy-kubernetes.md)
+**Prossima lezione →** [08 - Deploy su Kubernetes](08-deploy-kubernetes.md)

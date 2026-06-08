@@ -1,4 +1,4 @@
-# 09 — Componenti del Progetto
+# 09 - Componenti del Progetto
 
 ## 9.1 Struttura del Repository
 
@@ -273,7 +273,7 @@ kubectl get pvc -n app
 # redis-data-redis-master-0    Bound    pvc-def456...       8Gi
 ```
 
-K3s usa **Local Path Provisioner** come storage class di default — i dati vengono salvati in `/var/lib/rancher/k3s/storage/` sulla VM.
+K3s usa **Local Path Provisioner** come storage class di default - i dati vengono salvati in `/var/lib/rancher/k3s/storage/` sulla VM.
 
 ```bash
 # I dati di PostgreSQL sopravvivono al restart del pod
@@ -296,4 +296,4 @@ Il progetto integra 4 layer tecnologici:
 
 Ogni layer è progettato per essere **osservabile** (metriche) e **testabile** (chaos experiments).
 
-**Prossima lezione →** [10 — Osservabilità con Prometheus e Grafana](10-osservabilita.md)
+**Prossima lezione →** [10 - Osservabilità con Prometheus e Grafana](10-osservabilita.md)

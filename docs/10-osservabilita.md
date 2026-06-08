@@ -1,10 +1,10 @@
-# 10 — Osservabilità con Prometheus e Grafana
+# 10 - Osservabilità con Prometheus e Grafana
 
 ## 10.1 Il Problema dell'Osservabilità
 
-> *"You can't improve what you can't measure."* — Peter Drucker
+> *"You can't improve what you can't measure."* - Peter Drucker
 
-Nel Chaos Engineering, l'osservabilità non è opzionale — è il prerequisito. Senza metriche, non si può:
+Nel Chaos Engineering, l'osservabilità non è opzionale - è il prerequisito. Senza metriche, non si può:
 - Definire il **steady state**
 - Capire l'**impatto** di un esperimento
 - Verificare il **recovery** dopo il chaos
@@ -82,7 +82,7 @@ http_request_duration_seconds_bucket{handler="/api/items",le="+Inf"} 1234
 | **Histogram** | Distribuzione dei valori in bucket | `http_request_duration_seconds` |
 | **Summary** | Quantili pre-calcolati | `go_gc_duration_seconds` |
 
-### ServiceMonitor — Come Prometheus trova il Backend
+### ServiceMonitor - Come Prometheus trova il Backend
 
 Invece di configurare Prometheus manualmente, nel progetto usiamo il CRD `ServiceMonitor` di Prometheus Operator:
 
@@ -114,7 +114,7 @@ kubectl port-forward svc/prometheus-kube-prometheus-prometheus -n monitoring 909
 
 ---
 
-## 10.3 PromQL — Il Linguaggio di Query
+## 10.3 PromQL - Il Linguaggio di Query
 
 **PromQL** (Prometheus Query Language) è il linguaggio per interrogare le metriche.
 
@@ -207,12 +207,12 @@ La dashboard `monitoring/grafana-dashboards/app-resilience.json` include:
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│              App Resilience — Chaos Engineering              │
+│              App Resilience - Chaos Engineering              │
 ├─────────────┬─────────────┬─────────────┬────────────────────┤
 │  RPS        │  Error Rate │  Latenza p95│  Pod Attivi        │
 │  (stat)     │  (stat)     │  (stat)     │  (stat)            │
 ├─────────────┴─────────────┴─────────────┴────────────────────┤
-│  Latenza HTTP — p50 / p95 / p99         │  Pod Attivi per    │
+│  Latenza HTTP - p50 / p95 / p99         │  Pod Attivi per    │
 │  (timeseries)                           │  Deployment        │
 │                                         │  (timeseries)      │
 ├─────────────────────────────────────────┴────────────────────┤
@@ -220,10 +220,10 @@ La dashboard `monitoring/grafana-dashboards/app-resilience.json` include:
 │  (timeseries)                           │  (timeseries)      │
 ├─────────────────────────────────────────┴────────────────────┤
 │  RPS per Endpoint (Backend)                                  │
-│  (timeseries — una linea per ogni endpoint)                  │
+│  (timeseries - una linea per ogni endpoint)                  │
 ├──────────────────────────────────────────────────────────────┤
 │  Richieste HTTP per Endpoint e Status Code                   │
-│  (tabella con barre progress — ordinata per volume)          │
+│  (tabella con barre progress - ordinata per volume)          │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -363,4 +363,4 @@ prometheus-fastapi-instrumentator:
   • Histogram: distribuzione latenze
 ```
 
-**Prossima lezione →** [11 — I 5 Esperimenti di Chaos](11-esperimenti-chaos.md)
+**Prossima lezione →** [11 - I 5 Esperimenti di Chaos](11-esperimenti-chaos.md)

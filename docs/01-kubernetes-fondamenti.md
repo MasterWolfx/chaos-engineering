@@ -1,10 +1,10 @@
-# 01 — Introduzione a Kubernetes
+# 01 - Introduzione a Kubernetes
 
 ## 1.1 Il Problema: Gestire Applicazioni in Produzione
 
 Prima di parlare di Kubernetes, è necessario capire il problema che risolve.
 
-Negli anni 2000, un'applicazione web tipica era un **monolite**: un singolo processo che gestiva tutto — logica di business, database, interfaccia utente. Il deploy avveniva copiando file su un server fisico.
+Negli anni 2000, un'applicazione web tipica era un **monolite**: un singolo processo che gestiva tutto - logica di business, database, interfaccia utente. Il deploy avveniva copiando file su un server fisico.
 
 ```
 ┌─────────────────────────────────┐
@@ -109,7 +109,7 @@ Con i container è diventato pratico suddividere l'applicazione in **microserviz
 
 **Kubernetes** (dal greco: κυβερνήτης, "timoniere") è un sistema open source per l'automazione del deployment, della scalabilità e della gestione di applicazioni containerizzate.
 
-> "Kubernetes è un sistema di gestione di container che automatizza il deployment, la scalabilità e le operazioni dei container su cluster di host." — kubernetes.io
+> "Kubernetes è un sistema di gestione di container che automatizza il deployment, la scalabilità e le operazioni dei container su cluster di host." - kubernetes.io
 
 ### Breve Storia
 
@@ -182,7 +182,7 @@ L'Edge Computing porta la computazione vicino ai dati, riducendo latenza e dipen
 | **MicroK8s** | Developer, IoT | ~200 MB RAM |
 | **K8s standard** | Cloud, datacenter | ~1 GB+ RAM |
 
-> **Nel nostro progetto** usiamo **K3s** su una VM Ubuntu in Hyper-V — la scelta ideale per un ambiente di sviluppo/demo che simula un nodo edge.
+> **Nel nostro progetto** usiamo **K3s** su una VM Ubuntu in Hyper-V - la scelta ideale per un ambiente di sviluppo/demo che simula un nodo edge.
 
 ---
 
@@ -194,4 +194,4 @@ L'Edge Computing porta la computazione vicino ai dati, riducendo latenza e dipen
 - Il modello dichiarativo garantisce la convergenza allo stato desiderato
 - K3s è la variante leggera ideale per edge e sviluppo
 
-**Prossima lezione →** [02 — Architettura di un Cluster Kubernetes](02-architettura-cluster.md)
+**Prossima lezione →** [02 - Architettura di un Cluster Kubernetes](02-architettura-cluster.md)

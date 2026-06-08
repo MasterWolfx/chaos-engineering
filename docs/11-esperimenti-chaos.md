@@ -1,4 +1,4 @@
-# 11 — I 5 Esperimenti di Chaos
+# 11 - I 5 Esperimenti di Chaos
 
 ## Panoramica
 
@@ -12,7 +12,7 @@
 
 ---
 
-## Esperimento 01 — Pod Failure
+## Esperimento 01 - Pod Failure
 
 ### Obiettivo
 
@@ -96,7 +96,7 @@ kubectl delete -f chaos-experiments/01-pod-failure.yaml
 
 ---
 
-## Esperimento 02 — Network Delay
+## Esperimento 02 - Network Delay
 
 ### Obiettivo
 
@@ -134,7 +134,7 @@ spec:
 
 ### Ipotesi
 
-> "Ogni query SQL richiederà ~500ms in più. La latenza p95 dell'API salirà da ~10ms a ~600ms. Il sistema rimane funzionale con performance degradate — nessun errore 5xx."
+> "Ogni query SQL richiederà ~500ms in più. La latenza p95 dell'API salirà da ~10ms a ~600ms. Il sistema rimane funzionale con performance degradate - nessun errore 5xx."
 
 ### Meccanismo Tecnico
 
@@ -171,7 +171,7 @@ Il parametro `jitter: "100ms"` simula la variabilità reale della rete. La laten
 ### Risultato Atteso
 
 ✅ Latenza API aumenta significativamente durante l'esperimento.  
-✅ Nessun errore 5xx — l'app funziona, solo più lentamente.  
+✅ Nessun errore 5xx - l'app funziona, solo più lentamente.  
 ✅ Alla fine dei 2 minuti, la latenza torna ai valori normali.
 
 ### Cleanup
@@ -182,7 +182,7 @@ kubectl delete -f chaos-experiments/02-network-delay.yaml
 
 ---
 
-## Esperimento 03 — Network Partition
+## Esperimento 03 - Network Partition
 
 ### Obiettivo
 
@@ -287,7 +287,7 @@ kubectl delete -f chaos-experiments/03-network-partition.yaml
 
 ---
 
-## Esperimento 04 — CPU Stress
+## Esperimento 04 - CPU Stress
 
 ### Obiettivo
 
@@ -395,11 +395,11 @@ kubectl delete -f chaos-experiments/04-cpu-stress.yaml
 
 ---
 
-## Esperimento 05 — Pod Failure Cascading
+## Esperimento 05 - Pod Failure Cascading
 
 ### Obiettivo
 
-Simulare un fallimento continuo e ricorrente dei pod del backend — lo scenario più aggressivo. Verifica che il sistema rimanga disponibile anche con pod che vengono abbattuti ripetutamente.
+Simulare un fallimento continuo e ricorrente dei pod del backend - lo scenario più aggressivo. Verifica che il sistema rimanga disponibile anche con pod che vengono abbattuti ripetutamente.
 
 ### Configurazione
 
@@ -453,7 +453,7 @@ Sempre almeno 2 repliche attive → servizio disponibile!
 
 ### ⚠️ Importante: Stop Manuale
 
-L'esperimento 05 non termina automaticamente — usa `Schedule` ricorrente:
+L'esperimento 05 non termina automaticamente - usa `Schedule` ricorrente:
 
 ```bash
 # Per fermare l'esperimento
@@ -500,4 +500,4 @@ kubectl get pods -n app --watch
 └────────────────────────────────────────────────────────────────┘
 ```
 
-**Prossima lezione →** [12 — Risultati e Conclusioni](12-conclusioni.md)
+**Prossima lezione →** [12 - Risultati e Conclusioni](12-conclusioni.md)

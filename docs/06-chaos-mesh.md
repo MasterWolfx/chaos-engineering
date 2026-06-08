@@ -1,4 +1,4 @@
-# 06 — Chaos Mesh
+# 06 - Chaos Mesh
 
 ## 6.1 Cos'è Chaos Mesh
 
@@ -228,7 +228,7 @@ mode: random-max-percent  # percentuale random
 
 ## 6.6 Esempio Completo: NetworkChaos con Target
 
-La risorsa più complessa è NetworkChaos con un target specifico — simula la partizione di rete tra due servizi:
+La risorsa più complessa è NetworkChaos con un target specifico - simula la partizione di rete tra due servizi:
 
 ```yaml
 # chaos-experiments/03-network-partition.yaml
@@ -349,4 +349,4 @@ kubectl label namespace app chaos-mesh.org/inject=enabled
 | **Scheduling** | Risorsa `Schedule` con cron syntax |
 | **UI** | Dashboard web sulla porta 2333 |
 
-**Prossima lezione →** [07 — L'Applicazione a Microservizi](07-applicazione.md)
+**Prossima lezione →** [07 - L'Applicazione a Microservizi](07-applicazione.md)

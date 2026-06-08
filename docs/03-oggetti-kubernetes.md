@@ -1,4 +1,4 @@
-# 03 — Oggetti Kubernetes
+# 03 - Oggetti Kubernetes
 
 ## 3.1 Cosa sono gli Oggetti Kubernetes
 
@@ -45,7 +45,7 @@ I **namespace** sono partizioni virtuali del cluster che isolano le risorse.
 ```
 
 ```yaml
-# k8s/namespaces.yaml — dal nostro progetto
+# k8s/namespaces.yaml - dal nostro progetto
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -82,7 +82,7 @@ Il **Pod** è l'unità atomica di deployment in Kubernetes. Contiene uno o più 
 └──────────────────────────────────────────┘
 ```
 
-**Regola fondamentale:** I Pod sono **effimeri**. Non si modifica un Pod — lo si sostituisce. Ogni Pod ha un IP che cambia ad ogni ricreazione.
+**Regola fondamentale:** I Pod sono **effimeri**. Non si modifica un Pod - lo si sostituisce. Ogni Pod ha un IP che cambia ad ogni ricreazione.
 
 ```bash
 kubectl get pods -n app
@@ -322,8 +322,8 @@ kubectl get hpa -n app
 
 ## 3.8 ConfigMap e Secret
 
-**ConfigMap** — configurazione non sensibile in formato chiave-valore.  
-**Secret** — dati sensibili (password, token) codificati in Base64.
+**ConfigMap** - configurazione non sensibile in formato chiave-valore.  
+**Secret** - dati sensibili (password, token) codificati in Base64.
 
 ```yaml
 # ConfigMap
@@ -397,4 +397,4 @@ ConfigMap/Secret → configurazione e credenziali
 StatefulSet      → applicazioni stateful (DB, cache)
 ```
 
-**Prossima lezione →** [04 — Helm](04-helm.md)
+**Prossima lezione →** [04 - Helm](04-helm.md)

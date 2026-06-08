@@ -1,4 +1,4 @@
-# 08 — Deploy su Kubernetes
+# 08 - Deploy su Kubernetes
 
 ## 8.1 Il Percorso dal Codice al Cluster
 
@@ -55,7 +55,7 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "3000"]
 
 ### Build e Import in K3s
 
-K3s usa **containerd** come runtime, non Docker. Le immagini costruite con Docker non sono automaticamente disponibili in K3s — bisogna importarle:
+K3s usa **containerd** come runtime, non Docker. Le immagini costruite con Docker non sono automaticamente disponibili in K3s - bisogna importarle:
 
 ```bash
 # 1. Build dell'immagine con Docker
@@ -166,7 +166,7 @@ helm/backend/
     └── servicemonitor.yaml
 ```
 
-### `values.yaml` — Configurazione Completa
+### `values.yaml` - Configurazione Completa
 
 ```yaml
 replicaCount: 3
@@ -215,7 +215,7 @@ readinessProbe:
   failureThreshold: 3
 ```
 
-### `hpa.yaml` — Autoscaling
+### `hpa.yaml` - Autoscaling
 
 ```yaml
 # helm/backend/templates/hpa.yaml
@@ -242,7 +242,7 @@ spec:
 {{- end }}
 ```
 
-### `servicemonitor.yaml` — Integrazione Prometheus
+### `servicemonitor.yaml` - Integrazione Prometheus
 
 ```yaml
 # helm/backend/templates/servicemonitor.yaml
@@ -411,4 +411,4 @@ curl -X POST http://app.localhost/api/items \
 9. Test: curl http://app.localhost/api/health
 ```
 
-**Prossima lezione →** [09 — Componenti del Progetto](09-componenti-progetto.md)
+**Prossima lezione →** [09 - Componenti del Progetto](09-componenti-progetto.md)

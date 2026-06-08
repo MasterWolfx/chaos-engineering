@@ -1,10 +1,10 @@
-# 05 — Principi del Chaos Engineering
+# 05 - Principi del Chaos Engineering
 
 ## 5.1 La Domanda Fondamentale
 
 > *"Il vostro sistema è davvero resiliente, o lo credete soltanto?"*
 
-I sistemi distribuiti moderni sono intrinsecamente complessi. Decine di microservizi, database, cache, bilanciatori di carico, reti — tutto deve funzionare in armonia. Ma come si **verifica** la resilienza prima che lo faccia un guasto reale in produzione?
+I sistemi distribuiti moderni sono intrinsecamente complessi. Decine di microservizi, database, cache, bilanciatori di carico, reti - tutto deve funzionare in armonia. Ma come si **verifica** la resilienza prima che lo faccia un guasto reale in produzione?
 
 La risposta è il **Chaos Engineering**: la disciplina di sperimentare su un sistema in produzione (o che la simula) per costruire fiducia nella sua capacità di resistere a condizioni turbolente.
 
@@ -200,15 +200,15 @@ Un **GameDay** è una sessione strutturata in cui il team esegue esperimenti di 
 ```
 Struttura tipica di un GameDay:
 ┌──────────────────────────────────────────────────────┐
-│  9:00  — Briefing: scenari da testare oggi           │
-│  9:30  — Esperimento 1: Pod failure                  │
-│ 10:00  — Post-mortem intermedio                      │
-│ 10:30  — Esperimento 2: Network partition            │
-│ 11:00  — Esperimento 3: CPU stress                   │
-│ 12:00  — Pausa                                       │
-│ 13:00  — Review metriche Grafana                     │
-│ 14:00  — Retrospettiva: cosa ha retto, cosa no       │
-│ 15:00  — Piano di remediation                        │
+│  9:00  - Briefing: scenari da testare oggi           │
+│  9:30  - Esperimento 1: Pod failure                  │
+│ 10:00  - Post-mortem intermedio                      │
+│ 10:30  - Esperimento 2: Network partition            │
+│ 11:00  - Esperimento 3: CPU stress                   │
+│ 12:00  - Pausa                                       │
+│ 13:00  - Review metriche Grafana                     │
+│ 14:00  - Retrospettiva: cosa ha retto, cosa no       │
+│ 15:00  - Piano di remediation                        │
 └──────────────────────────────────────────────────────┘
 ```
 
@@ -238,24 +238,24 @@ Frequenza: pre-deploy         Frequenza: continua
 Il **Chaos Maturity Model** (da Gremlin):
 
 ```
-Livello 1 — Chaos Infante
+Livello 1 - Chaos Infante
   • Nessun chaos engineering
   • I guasti vengono scoperti dai clienti
 
-Livello 2 — Chaos Consapevole
+Livello 2 - Chaos Consapevole
   • Test manuali occasionali in staging
   • Chaos Monkey di base
 
-Livello 3 — Chaos Strutturato
+Livello 3 - Chaos Strutturato
   • GameDay regolari
   • Esperimenti documentati e ripetibili
   • Steady state definito                ← noi siamo qui
 
-Livello 4 — Chaos Automatizzato
+Livello 4 - Chaos Automatizzato
   • CI/CD con chaos integrato
   • Esperimenti in produzione automatici
 
-Livello 5 — Chaos Proattivo
+Livello 5 - Chaos Proattivo
   • Chaos come cultura aziendale
   • Ogni team ha il proprio piano di resilienza
   • Chaos come prerequisito al deploy
@@ -271,4 +271,4 @@ Livello 5 — Chaos Proattivo
 - I 5 principi guidano ogni esperimento: steady state → ipotesi → iniezione → misura → analisi
 - Le 8 fallacies ricordano che i sistemi distribuiti sono sempre più fragili di quanto sembri
 
-**Prossima lezione →** [06 — Chaos Mesh](06-chaos-mesh.md)
+**Prossima lezione →** [06 - Chaos Mesh](06-chaos-mesh.md)

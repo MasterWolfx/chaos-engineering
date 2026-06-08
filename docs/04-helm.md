@@ -1,4 +1,4 @@
-# 04 — Helm: Package Manager per Kubernetes
+# 04 - Helm: Package Manager per Kubernetes
 
 ## 4.1 Il Problema senza Helm
 
@@ -77,7 +77,7 @@ appVersion: "1.0.0"   # versione dell'applicazione
 ### values.yaml
 
 ```yaml
-# helm/backend/values.yaml — valori di default
+# helm/backend/values.yaml - valori di default
 replicaCount: 3
 
 image:
@@ -327,4 +327,4 @@ helm uninstall → rimozione
 helm template  → anteprima YAML generato
 ```
 
-**Prossima lezione →** [05 — Principi del Chaos Engineering](05-chaos-engineering.md)
+**Prossima lezione →** [05 - Principi del Chaos Engineering](05-chaos-engineering.md)

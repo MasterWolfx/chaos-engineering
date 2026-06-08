@@ -1,7 +1,7 @@
 # Chaos Engineering su Kubernetes
 **Resilience Testing di un'Architettura a Microservizi**
 
-> Progetto individuale — Corso di Distributed Edge Programming, Università degli Studi di Modena e Reggio Emilia, A.A. 2025/2026 
+> Progetto individuale - Corso di Distributed Edge Programming, Università degli Studi di Modena e Reggio Emilia, A.A. 2025/2026 
 > Studente: Leonardo Cavedoni
 
 ---
@@ -14,29 +14,7 @@ Questo progetto dimostra come applicare il **Chaos Engineering** a un'architettu
 
 ## Architettura
 
-```
-┌─────────────────────────────────── namespace: app ──────────────────────────────────┐
-│                                                                                      │
-│   ┌──────────────┐    ┌──────────────────┐    ┌─────────────┐    ┌──────────────┐   │
-│   │  Frontend    │───▶│   Backend API    │───▶│ PostgreSQL  │    │    Redis     │   │
-│   │  Nginx x2   │    │   FastAPI x3     │    │ StatefulSet │◀───│   Cache      │   │
-│   └──────────────┘    └──────────────────┘    └─────────────┘    └──────────────┘   │
-│         ▲                     ▲ HPA (2-6)                                           │
-└─────────┼─────────────────────┼───────────────────────────────────────────────────-─┘
-          │                     │
-    Ingress nginx          ServiceMonitor
-          │                     │
-   ┌──────┴──────┐    ┌─────────┴────────┐    ┌─────────────────────┐
-   │   Internet  │    │    Prometheus     │───▶│       Grafana        │
-   └─────────────┘    └──────────────────┘    └─────────────────────┘
-                       namespace: monitoring
-
-                       ┌──────────────────────────────┐
-                       │  Chaos Mesh (namespace:       │
-                       │  chaos-mesh)                  │
-                       │  Operator + Dashboard + CRDs  │
-                       └──────────────────────────────┘
-```
+![descrizione](assets/infrastructure2.svg)
 
 ### Componenti
 
@@ -207,9 +185,9 @@ Ogni esperimento segue la struttura classica del Chaos Engineering:
 2. **Formulare l'ipotesi** su cosa accadrà dopo il fault
 3. **Eseguire il fault** con Chaos Mesh mentre il sistema è sotto carico
 4. **Osservare e misurare** su Grafana
-5. **Trarre conclusioni** — il sistema ha rispettato l'ipotesi?
+5. **Trarre conclusioni** - il sistema ha rispettato l'ipotesi?
 
-### Esperimento 1 — Pod Failure
+### Esperimento 1 - Pod Failure
 
 ```bash
 kubectl apply -f chaos-experiments/01-pod-failure.yaml
@@ -217,11 +195,11 @@ kubectl apply -f chaos-experiments/01-pod-failure.yaml
 
 | | |
 |---|---|
-| **Fault** | PodChaos `pod-kill` — 1 pod backend ogni 60s |
+| **Fault** | PodChaos `pod-kill` - 1 pod backend ogni 60s |
 | **Ipotesi** | K8s rileva il pod down e lo riavvia entro 30s; le altre repliche continuano a servire traffico |
-| **Verifica** | `kubectl get pods -n app -w` — nessun errore 5xx su Grafana |
+| **Verifica** | `kubectl get pods -n app -w` - nessun errore 5xx su Grafana |
 
-### Esperimento 2 — Network Delay
+### Esperimento 2 - Network Delay
 
 ```bash
 kubectl apply -f chaos-experiments/02-network-delay.yaml
@@ -229,11 +207,11 @@ kubectl apply -f chaos-experiments/02-network-delay.yaml
 
 | | |
 |---|---|
-| **Fault** | NetworkChaos `delay` 500ms ±100ms — backend → PostgreSQL |
+| **Fault** | NetworkChaos `delay` 500ms ±100ms - backend → PostgreSQL |
 | **Ipotesi** | Latenza API aumenta visibilmente; app rimane funzionale (degraded performance) |
-| **Verifica** | Dashboard Grafana — picco latenza p95, error rate stabile a 0% |
+| **Verifica** | Dashboard Grafana - picco latenza p95, error rate stabile a 0% |
 
-### Esperimento 3 — Network Partition (Cache)
+### Esperimento 3 - Network Partition (Cache)
 
 ```bash
 kubectl apply -f chaos-experiments/03-network-partition.yaml
@@ -241,11 +219,11 @@ kubectl apply -f chaos-experiments/03-network-partition.yaml
 
 | | |
 |---|---|
-| **Fault** | NetworkChaos `partition` — backend ↔ Redis |
+| **Fault** | NetworkChaos `partition` - backend ↔ Redis |
 | **Ipotesi** | Backend cade in fallback (cache miss), richieste vanno a DB, nessun errore 5xx |
 | **Verifica** | Latenza più alta ma nessun 5xx; log backend mostrano "Cache MISS" |
 
-### Esperimento 4 — CPU Stress + HPA
+### Esperimento 4 - CPU Stress + HPA
 
 ```bash
 kubectl apply -f chaos-experiments/04-cpu-stress.yaml
@@ -255,9 +233,9 @@ kubectl apply -f chaos-experiments/04-cpu-stress.yaml
 |---|---|
 | **Fault** | StressChaos `cpu` 80% su tutti i pod backend |
 | **Ipotesi** | HPA rileva l'aumento CPU e scala nuove repliche; latenza rimane stabile |
-| **Verifica** | `kubectl get hpa -n app -w` — replica count aumenta; Grafana mostra CPU spike poi stabilizzazione |
+| **Verifica** | `kubectl get hpa -n app -w` - replica count aumenta; Grafana mostra CPU spike poi stabilizzazione |
 
-### Esperimento 5 — Pod Failure Cascading
+### Esperimento 5 - Pod Failure Cascading
 
 ```bash
 kubectl apply -f chaos-experiments/05-pod-failure-cascading.yaml
@@ -265,7 +243,7 @@ kubectl apply -f chaos-experiments/05-pod-failure-cascading.yaml
 
 | | |
 |---|---|
-| **Fault** | PodChaos `pod-kill` — tutti i pod backend in sequenza ogni 20s |
+| **Fault** | PodChaos `pod-kill` - tutti i pod backend in sequenza ogni 20s |
 | **Ipotesi** | K8s scala e ripristina continuamente; almeno 1 replica sempre up |
 | **Verifica** | Dashboard Grafana mostra oscillazione pod count ma 0 downtime totale |
 
